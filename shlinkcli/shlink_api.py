@@ -25,13 +25,13 @@ class ShlinkApi:
     @staticmethod
     def check_for_error(response: requests.Response) -> None:
         if response.status_code != requests.codes.ok:
-            raise Exception(response.json()["detail"])
+            raise Exception(response.json())
         # if header Content-Type: application/problem+json exits raise exception
         if (
             "Content-Type" in response.headers
             and response.headers["Content-Type"] == "application/problem+json"
         ):
-            raise Exception(response.json()["detail"])
+            raise Exception(response.json())
 
     def create_short_url(
         self,
@@ -62,7 +62,8 @@ class ShlinkApi:
             reqBody["validSince"] = validSince
         if validUntil:
             reqBody["validUntil"] = validUntil
-        reqBody["maxVisits"] = maxVisits
+        if maxVisits > 0:
+            reqBody["maxVisits"] = maxVisits
         if tags:
             reqBody["tags"] = tags
         if title:
@@ -74,7 +75,8 @@ class ShlinkApi:
         if domain:
             reqBody["domain"] = domain
         reqBody["findIfExists"] = findIfExists
-        reqBody["shortCodeLength"] = shortCodeLength
+        if shortCodeLength > 3:
+            reqBody["shortCodeLength"] = shortCodeLength
 
         res = self.session.post(
             url=f"/rest/v{__api_version__}/short-urls", json=reqBody

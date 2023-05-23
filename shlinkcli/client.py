@@ -24,7 +24,13 @@ class Client:
         self.api_key = api_key
         self.session = requests.Session()
         self.session.headers.update(
-            {"X-Api-Key": self.api_key, "User-Agent": f"{__app_name__}/v{__version__}"}
+            {
+                "X-Api-Key": self.api_key,
+                "User-Agent": f"{__app_name__}/v{__version__}",
+                "Accept": "application/json",
+                "Origin": f"{url}",
+                "Content-Type": "application/json",
+            }
         )
         self.host = url
 

@@ -83,3 +83,10 @@ class ShlinkApi:
         self.check_for_error(response=res)
 
         return res.json()
+
+    def delete_short_url(self, shortCode: str) -> None:
+        res = self.session.delete(
+            url=f"/rest/v{__api_version__}/short-urls/{shortCode}"
+        )
+
+        self.check_for_error(response=res)

@@ -103,3 +103,38 @@ class ShlinkApi:
         self.check_for_error(response=res)
 
         return res.json()
+
+    def get_short_url_list(
+        self,
+        page: int = 1,
+        itemsPerPage: int = 10,
+        searchTerm: str | None = None,
+        tags: list[str] | None = None,
+        tagsMode: str = "any",
+        orderBy: str = "dateCreated-DESC",
+        startDate: str | None = None,
+        endDate: str | None = None,
+        excludeMaxVisitsReached: bool = False,
+        excludePastValidUntil: bool = False,
+    ) -> Any:
+        params: dict[str, Any] = {}
+        params["page"] = page
+        params["itemsPerPage"] = itemsPerPage
+        if searchTerm:
+            params["searchTerm"] = searchTerm
+        if tags:
+            params["tags"] = tags
+        params["tagsMode"] = tagsMode
+        params["orderBy"] = orderBy
+        if startDate:
+            params["startDate"] = startDate
+        if endDate:
+            params["endDate"] = endDate
+        params["excludeMaxVisitsReached"] = excludeMaxVisitsReached
+        params["excludePastValidUntil"] = excludePastValidUntil
+
+        res = self.session.get(f"/rest/v{__api_version__}/short-urls", params=params)
+
+        self.check_for_error(response=res)
+
+        return res.json()

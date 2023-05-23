@@ -90,3 +90,16 @@ class ShlinkApi:
         )
 
         self.check_for_error(response=res)
+
+    def get_url_info(self, shortCode: str, domain: str | None) -> Any:
+        params: dict[str, Any] = {}
+        params["shortCode"] = shortCode
+        if domain:
+            params["domain"] = domain
+        res = self.session.get(
+            url=f"/rest/v{__api_version__}/short-urls", params=params
+        )
+
+        self.check_for_error(response=res)
+
+        return res.json()

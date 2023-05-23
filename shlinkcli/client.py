@@ -29,7 +29,6 @@ class Client:
                 "User-Agent": f"{__app_name__}/v{__version__}",
                 "Accept": "application/json",
                 "Origin": f"{url}",
-                "Content-Type": "application/json",
             }
         )
         self.host = url
@@ -38,13 +37,13 @@ class Client:
         return self.session.get(urljoin(self.host, url), params=params)
 
     def post(self, url: str, data=None) -> requests.Response:
-        return self.session.post(urljoin(self.host, url), data=data)
+        return self.session.post(urljoin(self.host, url), json=data)
 
     def patch(self, url: str, data=None) -> requests.Response:
-        return self.session.patch(urljoin(self.host, url), data=data)
+        return self.session.patch(urljoin(self.host, url), json=data)
 
     def put(self, url: str, data=None) -> requests.Response:
-        return self.session.put(urljoin(self.host, url), data=data)
+        return self.session.put(urljoin(self.host, url), json=data)
 
     def delete(self, url: str) -> requests.Response:
         return self.session.delete(urljoin(self.host, url))

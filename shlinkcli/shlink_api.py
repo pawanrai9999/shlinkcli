@@ -182,3 +182,25 @@ class ShlinkApi:
 
         if res.status_code != 204:
             self.check_for_error(response=res)
+
+    # Returns the list of all tags used in any short URL, together with the amount of short URLs and visits for it
+    def get_tags_with_stats(
+        self,
+        page: int = 1,
+        itemsPerPage: int | None = None,
+        searchTerm: str | None = None,
+        orderBy: str = "visits-DESC",
+    ) -> Any:
+        params: dict[str, Any] = {}
+        params["page"] = page
+        if itemsPerPage:
+            params["itemsPerPage"] = itemsPerPage
+        if searchTerm:
+            params["searchTerm"] = searchTerm
+        params["orderBy"] = orderBy
+
+        res = self.session.get(f"/rest/v{__api_version__}/tags/stats", params=params)
+
+        self.check_for_error(response=res)
+
+        return res.json()

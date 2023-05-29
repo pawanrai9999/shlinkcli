@@ -162,3 +162,14 @@ class ShlinkApi:
         self.check_for_error(response=res)
 
         return res.json()
+
+    # method to rename tag. takes oldname and newname as input parameters and makes put request
+    def rename_tag(self, oldName: str, newName: str) -> None:
+        reqBody: dict[str, str] = {}
+        reqBody["oldName"] = oldName
+        reqBody["newName"] = newName
+
+        res = self.session.put(f"/rest/v{__api_version__}/tags", json=reqBody)
+
+        if res.status_code != 204:
+            self.check_for_error(response=res)

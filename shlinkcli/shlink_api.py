@@ -140,3 +140,25 @@ class ShlinkApi:
         self.check_for_error(response=res)
 
         return res.json()
+
+    # method to Returns the list of all tags used in any short URL takes page,
+    # itemsPerPage, searchTerm and orderBy as input parameters
+    def get_tags(
+        self,
+        page: int = 1,
+        itemsPerPage: int = 10,
+        searchTerm: str | None = None,
+        orderBy: str = "tag-ASC",
+    ) -> Any:
+        params: dict[str, Any] = {}
+        params["page"] = page
+        params["itemsPerPage"] = itemsPerPage
+        if searchTerm:
+            params["searchTerm"] = searchTerm
+        params["orderBy"] = orderBy
+
+        res = self.session.get(f"/rest/v{__api_version__}/tags", params=params)
+
+        self.check_for_error(response=res)
+
+        return res.json()

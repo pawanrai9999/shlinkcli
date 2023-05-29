@@ -165,7 +165,8 @@ class ShlinkApi:
 
         return res.json()
 
-    # method to rename tag. takes oldname and newname as input parameters and makes put request
+    # method to rename tag. takes oldname and newname
+    # as input parameters and makes put request
     def rename_tag(self, oldName: str, newName: str) -> None:
         reqBody: dict[str, str] = {}
         reqBody["oldName"] = oldName
@@ -185,7 +186,8 @@ class ShlinkApi:
         if res.status_code != 204:
             self.check_for_error(response=res)
 
-    # Returns the list of all tags used in any short URL, together with the amount of short URLs and visits for it
+    # Returns the list of all tags used in any short URL,
+    # together with the amount of short URLs and visits for it
     def get_tags_with_stats(
         self,
         page: int = 1,

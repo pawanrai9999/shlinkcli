@@ -173,3 +173,12 @@ class ShlinkApi:
 
         if res.status_code != 204:
             self.check_for_error(response=res)
+
+    def delete_tags(self, tags: list[str]) -> None:
+        reqBody: dict[str, list[str]] = {}
+        reqBody["tags"] = tags
+
+        res = self.session.delete(f"/rest/v{__api_version__}/tags", json=reqBody)
+
+        if res.status_code != 204:
+            self.check_for_error(response=res)

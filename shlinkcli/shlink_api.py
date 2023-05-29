@@ -109,7 +109,7 @@ class ShlinkApi:
     def get_short_url_list(
         self,
         page: int = 1,
-        itemsPerPage: int = 10,
+        itemsPerPage: int | None = None,
         searchTerm: str | None = None,
         tags: list[str] | None = None,
         tagsMode: str = "any",
@@ -121,7 +121,8 @@ class ShlinkApi:
     ) -> Any:
         params: dict[str, Any] = {}
         params["page"] = page
-        params["itemsPerPage"] = itemsPerPage
+        if itemsPerPage:
+            params["itemsPerPage"] = itemsPerPage
         if searchTerm:
             params["searchTerm"] = searchTerm
         if tags:
@@ -146,13 +147,14 @@ class ShlinkApi:
     def get_tags(
         self,
         page: int = 1,
-        itemsPerPage: int = 10,
+        itemsPerPage: int | None = None,
         searchTerm: str | None = None,
         orderBy: str = "tag-ASC",
     ) -> Any:
         params: dict[str, Any] = {}
         params["page"] = page
-        params["itemsPerPage"] = itemsPerPage
+        if itemsPerPage:
+            params["itemsPerPage"] = itemsPerPage
         if searchTerm:
             params["searchTerm"] = searchTerm
         params["orderBy"] = orderBy

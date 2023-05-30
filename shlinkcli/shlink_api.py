@@ -208,3 +208,15 @@ class ShlinkApi:
         self.check_for_error(response=res)
 
         return res.json()
+
+    def visits_stats(self, shortCode: str | None = None) -> Any:
+        if shortCode:
+            res = self.session.get(
+                f"/rest/v{__api_version__}/short-urls/{shortCode}/visits"
+            )
+        else:
+            res = self.session.get(f"/rest/v{__api_version__}/visits")
+
+        self.check_for_error(response=res)
+
+        return res.json()

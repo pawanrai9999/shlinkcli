@@ -28,6 +28,7 @@ def create_short_url(
         long_url (str): long url
     """
     typer.echo(f"Creating short url for {long_url}")
+    # TODO: Implement this
 
 
 if __name__ == "__main__":

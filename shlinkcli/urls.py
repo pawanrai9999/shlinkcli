@@ -10,13 +10,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import typer
 
-from . import urls
+import typer
 
 app = typer.Typer()
 
-app.add_typer(urls.app, name="urls")
 
 if __name__ == "__main__":
     app()

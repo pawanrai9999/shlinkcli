@@ -10,10 +10,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from typing import Annotated
 
 import typer
 
 app = typer.Typer()
+
+
+@app.command()
+def create_short_url(
+    long_url: Annotated[str, typer.Option(help="Long URL to shorten")]
+) -> None:
+    """
+    Creates a short url for the given long url
+
+    Args:
+        long_url (str): long url
+    """
+    typer.echo(f"Creating short url for {long_url}")
 
 
 if __name__ == "__main__":
